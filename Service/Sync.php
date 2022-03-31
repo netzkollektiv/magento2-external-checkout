@@ -175,6 +175,10 @@ class Sync implements SyncInterface
 
         try {
             $quote = $this->quoteRepository->getActive($quoteIdMask);
+            if ($quote->getCustomerId()) {
+                $quote->setCustomerId(null)
+                    ->save();
+            }
         } catch (NoSuchEntityException $e) {
             $this->messageManager->addErrorMessage(__('Guest quote doen\'t exists'));
 
