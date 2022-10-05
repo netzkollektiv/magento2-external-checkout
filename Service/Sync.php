@@ -101,6 +101,7 @@ class Sync implements SyncInterface
 
             if (null === $cartId) {
                 $this->messageManager->addErrorMessage(__('Guest quote doen\'t exists'));
+                $this->logger->error($e->getMessage());
 
                 return false;
             }
@@ -110,10 +111,11 @@ class Sync implements SyncInterface
             $customer = $this->customerRepository->getById($customerId);
         } catch (NoSuchEntityException $e) {
             $this->messageManager->addErrorMessage(__('This customer doen\'t exists'));
+            $this->logger->error($e->getMessage());
 
             return false;
         } catch (LocalizedException $e) {
-            $this->logger->addError($e->getMessage());
+            $this->logger->error($e->getMessage());
 
             return false;
         }
@@ -129,7 +131,7 @@ class Sync implements SyncInterface
         try {
             $vueQuote = $this->quoteRepository->getActive($cartId);
         } catch (NoSuchEntityException $e) {
-            $this->logger->addError($e->getMessage());
+            $this->logger->error($e->getMessage());
 
             return false;
         }
@@ -169,6 +171,7 @@ class Sync implements SyncInterface
 
         if (null === $quoteIdMask) {
             $this->messageManager->addErrorMessage(__('Guest quote doen\'t exists'));
+            $this->logger->error($e->getMessage());
 
             return false;
         }
@@ -181,6 +184,7 @@ class Sync implements SyncInterface
             }
         } catch (NoSuchEntityException $e) {
             $this->messageManager->addErrorMessage(__('Guest quote doen\'t exists'));
+            $this->logger->error($e->getMessage());
 
             return false;
         }

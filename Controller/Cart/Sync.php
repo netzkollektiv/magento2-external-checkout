@@ -120,12 +120,12 @@ class Sync extends Action
                 try {
                     $customer = $this->customerRepository->getById($token->getCustomerId());
                 } catch (NoSuchEntityException $e) {
-                    $this->logger->addError($e->getMessage());
+                    $this->logger->error($e->getMessage());
                     $this->messageManager->addErrorMessage(__('Required customer doesn\'t exist'));
 
                     return $this->resultRedirectFactory->create()->setPath($checkoutPath);
                 } catch (LocalizedException $e) {
-                    $this->logger->addError($e->getMessage());
+                    $this->logger->error($e->getMessage());
                     $this->messageManager->addErrorMessage(__('Cannot synchronize customer cart'));
 
                     return $this->resultRedirectFactory->create()->setPath($checkoutPath);
