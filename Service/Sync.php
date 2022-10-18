@@ -171,7 +171,7 @@ class Sync implements SyncInterface
 
         if (null === $quoteIdMask) {
             $this->messageManager->addErrorMessage(__('Guest quote doen\'t exists'));
-            $this->logger->error($e->getMessage());
+            $this->logger->error('could not find quoteIdMask by cartId');
 
             return false;
         }
