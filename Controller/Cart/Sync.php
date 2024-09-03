@@ -137,7 +137,11 @@ class Sync extends Action
             $this->sync->synchronizeCustomerCart($this->customerSession->getCustomerId(), $cartId);
         }
 
-        return $this->resultRedirectFactory->create()->setPath($checkoutPath);
+        $params = [];
+        if ($this->getRequest()->getParam('paypal')) {
+            $params['button'] = 1;
+        }
+        return $this->resultRedirectFactory->create()->setPath($checkoutPath, $params);
     }
 
     /**
